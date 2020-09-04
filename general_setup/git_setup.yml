@@ -1,6 +1,9 @@
 ---
 - hosts: localhost
   tasks:
+    - name: set global github information
+      shell: git config --global user.email {{ github_email }}; git config --global user.name {{ username }}
+
     - name: make .ssh/github directory
       file:
         dest: ~/.ssh/github
