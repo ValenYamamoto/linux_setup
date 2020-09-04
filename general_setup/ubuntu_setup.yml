@@ -36,3 +36,8 @@
         dest: ~/.vimrc
         state: link
         
+    - name: symlink tmux.conf
+      file:
+        src: "{{ current_dir }}/tmux.conf"
+        dest: ~/.tmux.conf
+        state: link

@@ -30,3 +30,4 @@ addline "export VISUAL=vim" "$SHELL_CONFIG_FILE"
 
 echo "------Creating symlinks------"
 create_symlink general_setup/vimrc ./.vimrc
+create_symlink general_setup/tmux.conf ./.tmux.conf
