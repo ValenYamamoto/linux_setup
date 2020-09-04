@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  tasks:
+    - name: install packages
+      apt:
+        name:
+          - python
+          - python3
+          - numactl
+          - vim
+          - tmux
+          - make
+          - perl
+          - gcc
+          - g++
+          - build-essential
+        state: present
+      become: true
+
+    - name: Put alias and default editor in bashrc
+      blockinfile:
+        path: ~/.bashrc
+        block: |
+          export EDITOR=vim
+          export VISUAL=vim
+
+          alias py="python3"
+          alias mv="mv -vi"
+          alias rm="rm -vi"
+          alias vi="vim"
+        state: present
+
+    - name: symlink vimrc
+      file:
+        src: "{{ current_dir }}/vimrc"
+        dest: ~/.vimrc
+        state: link
+        

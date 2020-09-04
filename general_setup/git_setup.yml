@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  tasks:
+    - name: make .ssh/github directory
+      file:
+        dest: ~/.ssh/github
+        state: directory
+        mode: "0775"
+
+    - name: link config file
+      template:
+        src: "{{ current_dir }}/ssh_config.tmp"
+        dest: ~/.ssh/config
+        mode: "0664"
+
+    - name: github key-gen
+      openssh_keypair:
+        comment: "{{ github_email }}"
+        path: ~/.ssh/github/id_rsa
+        size: 4096
+        type: rsa

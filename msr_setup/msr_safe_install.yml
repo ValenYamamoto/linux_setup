@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  tasks:
+    - name: git clone repository
+      git:
+        repo: "git@github.com:LLNL/msr-safe.git"
+        dest: ~/msr-safe
+        accept_hostkey: yes
+        update: no
+
+    - name: make
+      shell: cd ~/msr-safe; make
+
+    - name: load kernel module
+      shell: lsmod | grep msr_safe; if [ $? = 1 ]; then insmod /home/{{ user }}/msr-safe/msr-safe.ko; fi
+      become: true
+
+    - name: make msr_user group
+      group:
+        name: msr_user
+        state: present
+      become: true
+
+    - name: add current user to msr_user
+      user:
+        name: "{{ user }}"
+        append: yes
+        groups: msr_user
+      become: true
+
+    - name: update permissions on /dev/cpu files
+      shell: chmod g+rw /dev/cpu/msr_* /dev/cpu/*/msr_*
+      become: true
+
+    - name: change group ownership
+      shell: chgrp msr_user /dev/cpu/msr_* /dev/cpu/*/msr_*
+      become: true
+
+    - name: cat allowlist
+      command: bash ./msr_allow_list.sh
