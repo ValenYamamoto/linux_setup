@@ -6,6 +6,7 @@
         name:
           - python
           - python3
+          - python3-pip
           - numactl
           - vim
           - tmux
@@ -41,3 +42,11 @@
         src: "{{ current_dir }}/tmux.conf"
         dest: ~/.tmux.conf
         state: link
+
+    - name: pip install python3 packages
+      pip:
+        name:
+          - tensorflow
+          - numpy
+          - scipy
+          - matplotlib

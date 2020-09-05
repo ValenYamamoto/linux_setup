@@ -31,3 +31,7 @@ addline "export VISUAL=vim" "$SHELL_CONFIG_FILE"
 echo "------Creating symlinks------"
 create_symlink general_setup/vimrc ./.vimrc
 create_symlink general_setup/tmux.conf ./.tmux.conf
+
+pip3 install torch==1.6.0+cpu torchvision==0.7.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
+pip3 install tensorflow
+pip3 install numpy scipy matplotlib
