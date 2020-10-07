@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 
 function addline {
 	grep "$1" $2 > /dev/null
@@ -17,7 +17,7 @@ function create_symlink {
 	fi
 }
 
-SHELL_CONFIG_FILE=./test
+SHELL_CONFIG_FILE=~/.bashrc
 
 echo "------Adding lines to $SHELL_CONFIG_FILE------"
 addline 'alias py="python3"' "$SHELL_CONFIG_FILE"
@@ -29,8 +29,8 @@ addline "export EDITOR=vim" "$SHELL_CONFIG_FILE"
 addline "export VISUAL=vim" "$SHELL_CONFIG_FILE"
 
 echo "------Creating symlinks------"
-create_symlink general_setup/vimrc ./.vimrc
-create_symlink general_setup/tmux.conf ./.tmux.conf
+create_symlink ~/linux_setup/general_setup/vimrc ~/.vimrc
+create_symlink ~/linux_setup/general_setup/tmux.conf ~/.tmux.conf
 
 pip3 install torch==1.6.0+cpu torchvision==0.7.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 pip3 install tensorflow
